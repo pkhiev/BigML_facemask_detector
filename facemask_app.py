@@ -6,8 +6,8 @@ import os
 import random
 
 API_URL = "https://bigml.io/andromeda/"
-#API_USERNAME = st.secrets['API_USERNAME']
-API_USERNAME = os.getenv("API_USERNAME")
+API_USERNAME = st.secrets['API_USERNAME']
+#API_USERNAME = os.getenv("API_USERNAME")
 API_KEY = os.getenv("API_KEY")
 API_AUTH = f"username={API_USERNAME};api_key={API_KEY}"
 #FONT = ImageFont.truetype("img/roboto.ttf", 25)
