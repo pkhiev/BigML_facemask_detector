@@ -6,17 +6,21 @@ import os
 import random
 
 API_URL = "https://bigml.io/andromeda/"
-API_USERNAME = st.secrets['API_USERNAME']
-#API_USERNAME = os.getenv("API_USERNAME")
-API_KEY = os.getenv("API_KEY")
+#API_USERNAME = st.secrets['BIGML_USERNAME']
+#API_USERNAME = os.getenv("BIGML_USERNAME")
+#API_KEY = os.getenv("BIGML_API_KEY")
+API_USERNAME="prestonkhiev"
+API_KEY="e662fd42619b89fa2442c267c8ab694cd3a61f60"
+#BIGML_AUTH="username=$BIGML_USERNAME&api_key=$BIGML_API_KEY"
 API_AUTH = f"username={API_USERNAME};api_key={API_KEY}"
-#FONT = ImageFont.truetype("img/roboto.ttf", 25)
+#FONT = ImageFont.truetype("arial.ttf", 25)
+
 MODEL = "deepnet/66027485478150ec58f66eb6"
-PREDICTION_THRESHOLD = 0.4
-#HEALTHY_CLASSES =  ["Blueberry leaf", "Peach leaf", "Raspberry leaf", "Strawberry leaf",
-                    #"Tomato leaf", "Bell_pepper leaf"]
-#DISEASE_CLASSES = ["Tomato leaf yellow virus", "Tomato Septoria leaf spot",
-                   #"Corn leaf blight", "Potato leaf early blight"]
+PREDICTION_THRESHOLD = 0.1
+HEALTHY_CLASSES =  ["Blueberry leaf", "Peach leaf", "Raspberry leaf", "Strawberry leaf",
+                    "Tomato leaf", "Bell_pepper leaf"]
+DISEASE_CLASSES = ["Tomato leaf yellow virus", "Tomato Septoria leaf spot",
+                   "Corn leaf blight", "Potato leaf early blight"]
 
 
 def resize(img, width):
@@ -55,7 +59,7 @@ def draw_predictions(pil_image, boxes):
         draw.rectangle(((xmin*w, ymin*h), (xmax*w, ymax*h)), width=9, outline="#eee")
         draw.text(
             (xmin*w+20, ymin*h+random.randint(10, 40)),
-            f"{label}: {str(confidence)[:3]}", font=FONT,  fill="#eee"
+            f"{label}: {str(confidence)[:3]}", fill="#eee"
         )
     return ImageOps.expand(pil_image ,border=50,fill='black')
 
@@ -71,6 +75,7 @@ def gen_message(boxes):
         st.success(f"🪴 Your plants have good health! Found **{','.join(healthy)}**!")
     else:
         st.error("No plant was found")
+        st.error(boxes)
 
 
 st.set_page_config(
@@ -81,10 +86,11 @@ st.set_page_config(
 
 # Sidebar information
 description = """ Detects facemasks and whether its worn correctly.  """
-#image = Image.open('img/rayray.jpeg')
-#st.sidebar.image(image, width=100)
+image = Image.open('/workspaces/facemask_detector/img/rayray.jpg')
+st.sidebar.image(image, width=100)
 st.sidebar.write(description)
 st.sidebar.write("Powered by [BigML](https://bigml.com)")
+st.sidebar.write(os.getenv("BIGML_USERNAME"))
 
 # Page title
 st.title("😷 BigML Face Mask Detection")
