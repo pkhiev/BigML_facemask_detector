@@ -6,7 +6,8 @@ import os
 import random
 
 API_URL = "https://bigml.io/andromeda/"
-API_USERNAME = st.secrets['API_USERNAME']
+#API_USERNAME = st.secrets['API_USERNAME']
+API_USERNAME = os.getenv("API_USERNAME")
 API_KEY = os.getenv("API_KEY")
 API_AUTH = f"username={API_USERNAME};api_key={API_KEY}"
 #FONT = ImageFont.truetype("img/roboto.ttf", 25)
@@ -83,7 +84,7 @@ description = """ Detects facemasks and whether its worn correctly.  """
 #image = Image.open('img/rayray.jpeg')
 #st.sidebar.image(image, width=100)
 st.sidebar.write(description)
-#st.sidebar.write("Powered by [BigML](https://bigml.com)")
+st.sidebar.write("Powered by [BigML](https://bigml.com)")
 
 # Page title
 st.title("😷 BigML Face Mask Detection")
