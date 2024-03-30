@@ -18,10 +18,6 @@ FONT = ImageFont.truetype("img/Arial.ttf", 35)
 MODEL = "deepnet/66027485478150ec58f66eb6"
 PREDICTION_THRESHOLD = 0.1
 MASK_CLASSES = ["with_mask", "without_mask", "mask_weared_incorrect"]
-#HEALTHY_CLASSES =  ["Blueberry leaf", "Peach leaf", "Raspberry leaf", "Strawberry leaf",
-                    #"Tomato leaf", "Bell_pepper leaf"]
-#DISEASE_CLASSES = ["Tomato leaf yellow virus", "Tomato Septoria leaf spot",
-                   #"Corn leaf blight", "Potato leaf early blight"]
 
 
 def resize(img, width):
@@ -69,15 +65,6 @@ def gen_message(boxes):
     """ Generate output message for predictions """
     labels = set([box[0] for box in boxes])
     mask_classes = labels.intersection(set(MASK_CLASSES))
-    #healthy = labels.intersection(set(HEALTHY_CLASSES))
-    #diseases = labels.intersection(set(DISEASE_CLASSES))
-    #if len(diseases) > 0:        
-        #st.warning(f"🦠 Your plants needs a doctor! Found **{','.join(diseases)}**!")
-    #elif len(healthy) > 0:
-        #st.success(f"🪴 Your plants have good health! Found **{','.join(healthy)}**!")
-    #else:
-        #st.error("No plant was found")
-        #st.error(boxes)
     if len(mask_classes) <= 0:
         st.warning('Nothing detected')
     if 'with_mask' in labels:
@@ -92,7 +79,7 @@ def gen_message(boxes):
 
 st.set_page_config(
     layout="wide",
-    page_title="Plant Disease Detection",
+    page_title="BigML Facemask Detector",
     page_icon="🌱",
 )
 
@@ -102,17 +89,11 @@ image = Image.open('img/rayray.jpg')
 st.sidebar.image(image, width=100)
 st.sidebar.write(description)
 st.sidebar.write("Powered by [BigML](https://bigml.com)")
-st.sidebar.write(os.getenv("BIGML_USERNAME"))
+#st.sidebar.write(os.getenv("BIGML_USERNAME"))
 
 # Page title
 st.title("😷 BigML Face Mask Detection")
 
-#classes = "HEALTHY:\n"
-#for leaf in HEALTHY_CLASSES:
-    #classes += f"- {leaf}\n"
-#classes += "\nDISEASES:\n"
-#for leaf in DISEASE_CLASSES:
-    #classes += f"- {leaf}\n"
 
 #with st.expander("⚠️ Disease detection model was trained with a small dataset. It can be inaccurate sometimes. It should be able to find the following classes: "):
     #st.write(classes) 
