@@ -13,18 +13,19 @@ API_USERNAME="prestonkhiev"
 API_KEY="e662fd42619b89fa2442c267c8ab694cd3a61f60"
 #BIGML_AUTH="username=$BIGML_USERNAME&api_key=$BIGML_API_KEY"
 API_AUTH = f"username={API_USERNAME};api_key={API_KEY}"
-#FONT = ImageFont.truetype("arial.ttf", 25)
+FONT = ImageFont.truetype("img/Arial.ttf", 35)
 
 MODEL = "deepnet/66027485478150ec58f66eb6"
 PREDICTION_THRESHOLD = 0.1
-HEALTHY_CLASSES =  ["Blueberry leaf", "Peach leaf", "Raspberry leaf", "Strawberry leaf",
-                    "Tomato leaf", "Bell_pepper leaf"]
-DISEASE_CLASSES = ["Tomato leaf yellow virus", "Tomato Septoria leaf spot",
-                   "Corn leaf blight", "Potato leaf early blight"]
+MASK_CLASSES = ["with_mask", "without_mask", "mask_weared_incorrect"]
+#HEALTHY_CLASSES =  ["Blueberry leaf", "Peach leaf", "Raspberry leaf", "Strawberry leaf",
+                    #"Tomato leaf", "Bell_pepper leaf"]
+#DISEASE_CLASSES = ["Tomato leaf yellow virus", "Tomato Septoria leaf spot",
+                   #"Corn leaf blight", "Potato leaf early blight"]
 
 
 def resize(img, width):
-    """ Resize an imge to a given width maintaining aspect ratio """
+    """ Resize an iamge to a given width maintaining aspect ratio """
     percent = width / float(img.size[0])
     return img.resize((width, int((float(img.size[1]) * float(percent)))))
 
@@ -59,7 +60,7 @@ def draw_predictions(pil_image, boxes):
         draw.rectangle(((xmin*w, ymin*h), (xmax*w, ymax*h)), width=9, outline="#eee")
         draw.text(
             (xmin*w+20, ymin*h+random.randint(10, 40)),
-            f"{label}: {str(confidence)[:3]}", fill="#eee"
+            f"{label}: {str(confidence)[:3]}", font=FONT, fill="red"
         )
     return ImageOps.expand(pil_image ,border=50,fill='black')
 
@@ -67,15 +68,26 @@ def draw_predictions(pil_image, boxes):
 def gen_message(boxes):
     """ Generate output message for predictions """
     labels = set([box[0] for box in boxes])
-    healthy = labels.intersection(set(HEALTHY_CLASSES))
-    diseases = labels.intersection(set(DISEASE_CLASSES))
-    if len(diseases) > 0:        
-        st.warning(f"🦠 Your plants needs a doctor! Found **{','.join(diseases)}**!")
-    elif len(healthy) > 0:
-        st.success(f"🪴 Your plants have good health! Found **{','.join(healthy)}**!")
-    else:
-        st.error("No plant was found")
-        st.error(boxes)
+    mask_classes = labels.intersection(set(MASK_CLASSES))
+    #healthy = labels.intersection(set(HEALTHY_CLASSES))
+    #diseases = labels.intersection(set(DISEASE_CLASSES))
+    #if len(diseases) > 0:        
+        #st.warning(f"🦠 Your plants needs a doctor! Found **{','.join(diseases)}**!")
+    #elif len(healthy) > 0:
+        #st.success(f"🪴 Your plants have good health! Found **{','.join(healthy)}**!")
+    #else:
+        #st.error("No plant was found")
+        #st.error(boxes)
+    if len(mask_classes) <= 0:
+        st.warning('No masks detected')
+    if 'with_mask' in labels:
+        st.success('Subject is wearing a mask!')
+    if 'mask_weared_incorrect' in labels:
+        st.warning('Subject is wearing mask incorrectly')
+    if 'without_mask' in labels:
+        st.error('Subject is not wearing a mask!!')
+    if len(mask_classes) > 0:
+        st.success("Objects Detected: " + str(labels))
 
 
 st.set_page_config(
