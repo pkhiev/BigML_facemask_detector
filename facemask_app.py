@@ -86,8 +86,8 @@ def gen_message(boxes):
         st.warning('Subject is wearing mask incorrectly')
     if 'without_mask' in labels:
         st.error('Subject is not wearing a mask!!')
-    if len(mask_classes) > 0:
-        st.success("Objects Detected: " + str(labels))
+    #if len(mask_classes) > 0:
+        #st.success("Objects Detected: " + str(labels))
 
 
 st.set_page_config(
