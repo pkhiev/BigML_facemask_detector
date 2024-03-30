@@ -123,15 +123,18 @@ left, right = st.columns(2)
 
 # Example images
 examples = {
-    "Example Tomato": "img/tomato-septoria-3-500x384.jpg",
-    "Example Raspberry": "img/plant8.jpg",
-    "Example Potato": "img/Potato-Blight-on-Leaves.jpg",    
-    "Example Bell pepper": "img/Bell-pepper-leaves.jpg"
+    "Example 1": '/workspaces/facemask_detector/img/ex1.jpg',
+    "Example 2": '/workspaces/facemask_detector/img/ex2.jpg',
+    "Example 3": '/workspaces/facemask_detector/img/ex3.jpg',    
+    "Example 4": '/workspaces/facemask_detector/img/ex4.jpg',
+    "Example 5": '/workspaces/facemask_detector/img/ex5.jpg',
+    "Example 6": '/workspaces/facemask_detector/img/ex6.jpg',
+    "Example 7": '/workspaces/facemask_detector/img/ex7.jpg',
 }
 
 with left.expander(label=f"{API_AUTH}", expanded=True):
     option = st.selectbox('Choose one example image...', examples.keys(),index=0)
-    clicked = st.button("Diagnose selected image")
+    clicked = st.button("Evaluate selected image")
     if clicked:
         example_file = open(examples[option], 'rb')
 
@@ -139,7 +142,7 @@ with left.expander(label=f"{API_AUTH}", expanded=True):
 msg = "Or upload your own image..."
 with right.form("submit", clear_on_submit=True):
     uploaded_file = st.file_uploader(msg, type=["png ", "jpg", "jpeg"])
-    submitted = st.form_submit_button("Diagnose uploaded image")
+    submitted = st.form_submit_button("Evaluate uploaded image")
 
 
 file_to_predict = None
