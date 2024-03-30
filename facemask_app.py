@@ -98,7 +98,7 @@ st.set_page_config(
 
 # Sidebar information
 description = """ Detects facemasks and whether its worn correctly.  """
-image = Image.open('/workspaces/facemask_detector/img/rayray.jpg')
+image = Image.open('img/rayray.jpg')
 st.sidebar.image(image, width=100)
 st.sidebar.write(description)
 st.sidebar.write("Powered by [BigML](https://bigml.com)")
