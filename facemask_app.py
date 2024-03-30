@@ -123,13 +123,13 @@ left, right = st.columns(2)
 
 # Example images
 examples = {
-    "Example 1": '/workspaces/facemask_detector/img/ex1.jpg',
-    "Example 2": '/workspaces/facemask_detector/img/ex2.jpg',
-    "Example 3": '/workspaces/facemask_detector/img/ex3.jpg',    
-    "Example 4": '/workspaces/facemask_detector/img/ex4.jpg',
-    "Example 5": '/workspaces/facemask_detector/img/ex5.jpg',
-    "Example 6": '/workspaces/facemask_detector/img/ex6.jpg',
-    "Example 7": '/workspaces/facemask_detector/img/ex7.jpg',
+    "Example 1": 'img/ex1.jpg',
+    "Example 2": 'img/ex2.jpg',
+    "Example 3": 'img/ex3.jpg',    
+    "Example 4": 'img/ex4.jpg',
+    "Example 5": 'img/ex5.jpg',
+    "Example 6": 'img/ex6.jpg',
+    "Example 7": 'img/ex7.jpg',
 }
 
 with left.expander(label=f"{API_AUTH}", expanded=True):
