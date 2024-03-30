@@ -79,7 +79,7 @@ def gen_message(boxes):
         #st.error("No plant was found")
         #st.error(boxes)
     if len(mask_classes) <= 0:
-        st.warning('No masks detected')
+        st.warning('Nothing detected')
     if 'with_mask' in labels:
         st.success('Subject is wearing a mask!')
     if 'mask_weared_incorrect' in labels:
