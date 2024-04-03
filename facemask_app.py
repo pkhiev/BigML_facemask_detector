@@ -7,6 +7,7 @@ import random
 
 API_URL = "https://bigml.io/andromeda/"
 API_USERNAME = st.secrets['BIGML_USERNAME']
+API_KEY = st.secrets['BIGML_API_KEY']
 #API_USERNAME = os.getenv("BIGML_USERNAME")
 #API_USERNAME = os.environ["BIGML_USERNAME"]
 #API_KEY = os.getenv("BIGML_API_KEY")
