@@ -3,4 +3,5 @@ steps:
     env: # Set the secret as an input
       BIGML_USERNAME: ${{ secrets.BIGML_USERNAME }}
       BIGML_API_KEY: ${{ secrets.BIGML_API_KEY}}
+    run: python -c 'import os;print(os.environ)'
     
