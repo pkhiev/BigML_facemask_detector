@@ -5,19 +5,30 @@ import io
 import os
 import random
 
+FONT = ImageFont.truetype("img/Arial.ttf", 33)
 API_URL = "https://bigml.io/andromeda/"
+
+#For Production
 API_USERNAME = st.secrets['BIGML_USERNAME']
 API_KEY = st.secrets['BIGML_API_KEY']
+
+#For testing environment
 #API_USERNAME = os.getenv("BIGML_USERNAME")
-#API_USERNAME = os.environ["BIGML_USERNAME"]
 #API_KEY = os.getenv("BIGML_API_KEY")
+
 #API_USERNAME="prestonkhiev"
 #API_KEY="e662fd42619b89fa2442c267c8ab694cd3a61f60"
-#BIGML_AUTH="username=$BIGML_USERNAME&api_key=$BIGML_API_KEY"
 API_AUTH = f"username={API_USERNAME};api_key={API_KEY}"
-FONT = ImageFont.truetype("img/Arial.ttf", 35)
 
+#V2 Model. Base dataset with resize to 640x640
 MODEL = "deepnet/66027485478150ec58f66eb6"
+
+#V7 Model. No Resize. Augmentations for rotation, sheer, blur
+#MODEL = "deepnet/6607a6f0506f7b1096918782"
+
+#V9 Model. Base Dataset, no resize
+#MODEL = "deepnet/6607a903478150ec58f6734d"
+
 PREDICTION_THRESHOLD = 0.1
 MASK_CLASSES = ["with_mask", "without_mask", "mask_weared_incorrect"]
 
@@ -27,12 +38,6 @@ def resize(img, width):
     percent = width / float(img.size[0])
     return img.resize((width, int((float(img.size[1]) * float(percent)))))
 
-
-#API_URL = "https://labs.dev.bigml.io/andromeda/"
-#API_USERNAME = os.getenv("BIGML_USERNAME")
-#API_KEY = os.getenv("BIGML_API_KEY")
-#API_AUTH = f"username={API_USERNAME};api_key={API_KEY}"
-
 def detection(uploaded_file):
     # Upload image to BigML as a source
     source_response = requests.post(
@@ -40,17 +45,17 @@ def detection(uploaded_file):
         files={"file": ("plant_image", uploaded_file)}
     )
     source = source_response.json()["resource"]
-    # Generate prediction data
+    #Generate predictions
     data = {"model": MODEL, "input_data": {"000002": source}}
     response = requests.post(f"{API_URL}prediction?{API_AUTH}", json=data)
     regions = response.json()["prediction"].get("000000", [])
-    # Remove the source, we don't need it any more
+    # Delete the source after it's no longer needed
     requests.delete(f"{API_URL}{source}?{API_AUTH}")
     return [r for r in regions if r[5]>PREDICTION_THRESHOLD]
 
 
 def draw_predictions(pil_image, boxes):
-    """ Draw BigML predictions in the image, adding a black border too """
+    """ Draw BigML detected objects in the image"""
     w, h = pil_image.size
     draw = ImageDraw.Draw(pil_image)
     for box in boxes:
@@ -70,11 +75,11 @@ def gen_message(boxes):
     if len(mask_classes) <= 0:
         st.warning('Nothing detected')
     if 'with_mask' in labels:
-        st.success('Subject is wearing a mask!')
+        st.success('Subject(s) is wearing a mask!')
     if 'mask_weared_incorrect' in labels:
-        st.warning('Subject is wearing mask incorrectly')
+        st.warning('Subject(s) is wearing mask incorrectly')
     if 'without_mask' in labels:
-        st.error('Subject is not wearing a mask!!')
+        st.error('Subject(s) is not wearing a mask!!')
     #if len(mask_classes) > 0:
         #st.success("Objects Detected: " + str(labels))
 
@@ -86,7 +91,7 @@ st.set_page_config(
 )
 
 # Sidebar information
-description = """ Detects facemasks and whether its worn correctly.  """
+description = """ Uses a BigML deepnet to detect if a subject is wearing a facemask correctly, wearing a facemask incorrectly, or not wearing a facemask.  """
 image = Image.open('img/rayray.jpg')
 st.sidebar.image(image, width=100)
 st.sidebar.write(description)
@@ -140,8 +145,7 @@ if file_to_predict:
     st.subheader("Detection result")
     with st.spinner('Diagnose in progress. Please wait...'):
         boxes = detection(file_to_predict)
-        #image = resize(Image.open(file_to_predict), 1000)
-        image = resize(Image.open(file_to_predict), 640)
+        image = resize(Image.open(file_to_predict), 1000)
         output_image = draw_predictions(image, boxes)
         gen_message(boxes)
         st.image(output_image, width=700)
