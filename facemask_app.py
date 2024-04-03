@@ -120,7 +120,7 @@ examples = {
     "Example 7": 'img/ex7.jpg',
 }
 
-with left.expander(label=f"{API_AUTH}", expanded=True):
+with left.expander(label="Example Mask Detections", expanded=True):
     option = st.selectbox('Choose one example image...', examples.keys(),index=0)
     clicked = st.button("Evaluate selected image")
     if clicked:
