@@ -75,7 +75,7 @@ def gen_message(boxes):
     if len(mask_classes) <= 0:
         st.warning('Nothing detected')
     if 'with_mask' in labels:
-        st.success('👍Subject(s) wearing a mask!'😷)
+        st.success('👍Subject(s) wearing a mask!😷')
     if 'mask_weared_incorrect' in labels:
         st.warning('🤒Subject(s) wearing mask incorrectly🦠')
     if 'without_mask' in labels:
