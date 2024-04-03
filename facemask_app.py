@@ -6,10 +6,10 @@ import os
 import random
 
 API_URL = "https://bigml.io/andromeda/"
-#API_USERNAME = st.secrets['BIGML_USERNAME']
-API_USERNAME = os.getenv("BIGML_USERNAME")
+API_USERNAME = st.secrets['BIGML_USERNAME']
+#API_USERNAME = os.getenv("BIGML_USERNAME")
 #API_USERNAME = os.environ["BIGML_USERNAME"]
-API_KEY = os.getenv("BIGML_API_KEY")
+#API_KEY = os.getenv("BIGML_API_KEY")
 #API_USERNAME="prestonkhiev"
 #API_KEY="e662fd42619b89fa2442c267c8ab694cd3a61f60"
 #BIGML_AUTH="username=$BIGML_USERNAME&api_key=$BIGML_API_KEY"
@@ -22,7 +22,7 @@ MASK_CLASSES = ["with_mask", "without_mask", "mask_weared_incorrect"]
 
 
 def resize(img, width):
-    """ Resize an iamge to a given width maintaining aspect ratio """
+    """ Resize an image to a given width maintaining aspect ratio """
     percent = width / float(img.size[0])
     return img.resize((width, int((float(img.size[1]) * float(percent)))))
 
@@ -81,7 +81,7 @@ def gen_message(boxes):
 st.set_page_config(
     layout="wide",
     page_title="BigML Facemask Detector",
-    page_icon="🌱",
+    page_icon="😷",
 )
 
 # Sidebar information
@@ -139,7 +139,8 @@ if file_to_predict:
     st.subheader("Detection result")
     with st.spinner('Diagnose in progress. Please wait...'):
         boxes = detection(file_to_predict)
-        image = resize(Image.open(file_to_predict), 1000)
+        #image = resize(Image.open(file_to_predict), 1000)
+        image = resize(Image.open(file_to_predict), 640)
         output_image = draw_predictions(image, boxes)
         gen_message(boxes)
         st.image(output_image, width=700)
