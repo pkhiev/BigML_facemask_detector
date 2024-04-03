@@ -1,7 +1,12 @@
-steps:
-  - name: FaceMaskDetector
-    env: # Set the secret as an input
-      BIGML_USERNAME: ${{ secrets.BIGML_USERNAME }}
-      BIGML_API_KEY: ${{ secrets.BIGML_API_KEY}}
-    run: python -c 'import os;print(os.environ)'
-    
+name: facemask_app
+on: workflow_dispatch:
+
+jobs: facemask_app:
+ #runs-on: windows-latest
+ steps:
+ - name: Run facemask_app.py
+   env:
+     BIGML_USERNAME: ${{ secrets.BIGML_USERNAME }}
+     BIGML_API_KEY: ${{ secrets.BIGML_API_KEY}} 
+   run: |
+     python facemask_app.py
