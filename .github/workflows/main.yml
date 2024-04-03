@@ -9,4 +9,4 @@ jobs: facemask_app:
      BIGML_USERNAME: ${{ secrets.BIGML_USERNAME }}
      BIGML_API_KEY: ${{ secrets.BIGML_API_KEY}} 
    run: |
-     python facemask_app.py
+     python BigML_facemask_detector/facemask_app.py
