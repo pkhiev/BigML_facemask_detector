@@ -78,7 +78,7 @@ description = """ Uses a BigML deepnet to detect if a subject is wearing a facem
 image = Image.open('img/img1.jpg')
 st.sidebar.image(image, width=100)
 st.sidebar.write(description)
-st.sidebar.write("Data was obtained from [Kaggle] (https://www.kaggle.com/datasets/andrewmvd/face-mask-detection)")
+st.sidebar.write("Data was obtained from [Kaggle](https://www.kaggle.com/datasets/andrewmvd/face-mask-detection)")
 st.sidebar.write("Powered by [BigML](https://bigml.com)")
 
 
