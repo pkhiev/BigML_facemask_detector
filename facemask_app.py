@@ -21,7 +21,7 @@ API_KEY = st.secrets['BIGML_API_KEY']
 API_AUTH = f"username={API_USERNAME};api_key={API_KEY}"
 
 #V2 Model. Base dataset with resize to 640x640
-MODEL = st.secrets['DEEPNET_MODEL']
+MODEL = st.secrets['MODEL_ID']
 #MODEL = "deepnet/66027485478150ec58f66eb6"
 
 #V7 Model. No Resize. Augmentations for rotation, sheer, blur
