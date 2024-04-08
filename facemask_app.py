@@ -74,7 +74,7 @@ st.set_page_config(
 )
 
 # Sidebar information
-description = """ Uses a BigML deepnet to detect if a subject is wearing a facemask correctly, wearing a facemask incorrectly, or not wearing a facemask.  """
+description = """ This facemask detector application leverages a neural network to perform object detection using the BigML API to determine whether people in an image are 1) Wearing a mask, 2) Not wearing a mask, or 3) Wearing a mask incorrectly. The fask mask detection model was trained and validated using a relatively small dataset of 853 pre-labeled images, so you may observe some inaccurate detection. """
 image = Image.open('img/img1.jpg')
 st.sidebar.image(image, width=100)
 st.sidebar.write(description)
