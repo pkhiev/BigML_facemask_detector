@@ -11,25 +11,9 @@ API_URL = "https://bigml.io/andromeda/"
 #For Production
 API_USERNAME = st.secrets['BIGML_USERNAME']
 API_KEY = st.secrets['BIGML_API_KEY']
-
-#For testing environment
-#API_USERNAME = os.getenv("BIGML_USERNAME")
-#API_KEY = os.getenv("BIGML_API_KEY")
-
-#API_USERNAME="prestonkhiev"
-#API_KEY="e662fd42619b89fa2442c267c8ab694cd3a61f60"
 API_AUTH = f"username={API_USERNAME};api_key={API_KEY}"
 
-#V2 Model. Base dataset with resize to 640x640
 MODEL = st.secrets['MODEL_ID']
-#MODEL = "deepnet/66027485478150ec58f66eb6"
-
-#V7 Model. No Resize. Augmentations for rotation, sheer, blur
-#MODEL = "deepnet/6607a6f0506f7b1096918782"
-
-#V9 Model. Base Dataset, no resize
-#MODEL = "deepnet/6607a903478150ec58f6734d"
-
 PREDICTION_THRESHOLD = 0.1
 MASK_CLASSES = ["with_mask", "without_mask", "mask_weared_incorrect"]
 
@@ -81,8 +65,6 @@ def gen_message(boxes):
         st.warning('🤒Subject(s) wearing mask incorrectly🦠')
     if 'without_mask' in labels:
         st.error('⚠️Subject(s) not wearing a mask!!⚠️')
-    #if len(mask_classes) > 0:
-        #st.success("Objects Detected: " + str(labels))
 
 
 st.set_page_config(
@@ -93,11 +75,12 @@ st.set_page_config(
 
 # Sidebar information
 description = """ Uses a BigML deepnet to detect if a subject is wearing a facemask correctly, wearing a facemask incorrectly, or not wearing a facemask.  """
-image = Image.open('img/rayray.jpg')
+image = Image.open('img/img1.jpg')
 st.sidebar.image(image, width=100)
 st.sidebar.write(description)
+st.sidebar.write("Data was obtained from [Kaggle] (https://www.kaggle.com/datasets/andrewmvd/face-mask-detection)")
 st.sidebar.write("Powered by [BigML](https://bigml.com)")
-#st.sidebar.write(os.getenv("BIGML_USERNAME"))
+
 
 # Page title
 st.title("😷 BigML Face Mask Detection")
