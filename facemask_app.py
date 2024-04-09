@@ -83,7 +83,7 @@ st.sidebar.write("Powered by [BigML](https://bigml.com)")
 
 
 # Page title
-st.title("😷 BigML Face Mask Detector")
+st.title("😷 [BigML](https://bigml.com) Face Mask Detector")
 
 
 #with st.expander("⚠️ Disease detection model was trained with a small dataset. It can be inaccurate sometimes. It should be able to find the following classes: "):
