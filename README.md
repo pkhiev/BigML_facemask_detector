@@ -1,4 +1,4 @@
-# Face Mask Detection in Images utilizing BigML API
+# Face Mask Detection in Images utilizing <a href =https://bigml.com>BigML</a> API
 
 <strong>This facemask detector application leverages a neural network to perform object detection using the BigML API to determine whether people in an image are 1) Wearing a mask, 2) Not wearing a mask, or 3) Wearing a mask incorrectly.</strong>
 
