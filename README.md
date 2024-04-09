@@ -7,7 +7,7 @@
 
 # Data source
 
-<strong>The data was obtained from a public face mask detection dataset on Kaggle: https://www.kaggle.com/datasets/andrewmvd/face-mask-detection The data contains 853 images pre-labeled with 3 object classes: with_mask, without_mask, and mask_weared_incorrect. Each image has a corresponding XML file with bounding boxes listed in PASCAL VOC format.</strong>
+<strong>The data was obtained from a public face mask detection dataset on <a href="https://www.kaggle.com/datasets/andrewmvd/face-mask-detection"> Kaggle </a>. The data contains 853 images pre-labeled with 3 object classes: with_mask, without_mask, and mask_weared_incorrect. Each image has a corresponding XML file with bounding boxes listed in PASCAL VOC format.</strong>
 
 ![fig1](https://github.com/pkhiev/BigML_facemask_detector/blob/main/img/fig1.JPG)
 
@@ -57,8 +57,8 @@ Figure 6. A sample output of mask detections from the application.
 
 
 
-This blog post was used as a template for streamlit.io application. 
-https://blog.bigml.com/2022/06/13/easily-detecting-your-plant-disease-with-object-detection/
+<a href =https://blog.bigml.com/2022/06/13/easily-detecting-your-plant-disease-with-object-detection/>This</a> blog post was used as a template for streamlit.io application.
+
 
 
 
